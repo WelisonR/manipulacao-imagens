@@ -1,10 +1,14 @@
 #include "imagens.hpp"
+#include "arquivo.hpp"
 #include <iostream>
 #include <fstream>
 
 using namespace std;
 
-Imagens::Imagens(){}
+Imagens::Imagens(){
+	string localArquivo = Arquivo::getLocalArquivo();
+	Imagens::leitorArquivo(localArquivo);
+}
 
 Imagens::~Imagens(){}
 
