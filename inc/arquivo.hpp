@@ -1,19 +1,19 @@
-#ifndef MENU_HPP
-#define MENU_HPP
+#ifndef ARQUIVO_HPP
+#define ARQUIVO_HPP
 
 #include <string>
 
 using namespace std;
 
-class Menu {
+class Arquivo {
 
 private:
 	string localArquivo;
 	string extensaoArquivo;
 
 public:
-	Menu();
-	~Menu();
+	Arquivo();
+	~Arquivo();
 	void setLocalArquivo (string localArquivo);
 	string getLocalArquivo();
 	void setExtensaoArquivo(string extensaoArquivo);
