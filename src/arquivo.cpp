@@ -3,11 +3,7 @@
 
 using namespace std;
 
-Arquivo::Arquivo(){
-	cout << "Bem-vindo ao algoritmo de descriptografia de imagens" << endl;
-	cout << "Por favor, insira o diretório para a imagem com a respectiva extensão: " << endl;
-	Arquivo::recebeLocalArquivo();
-}
+Arquivo::Arquivo(){}
 
 Arquivo::~Arquivo(){}
 

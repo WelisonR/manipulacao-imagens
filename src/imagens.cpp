@@ -5,10 +5,7 @@
 
 using namespace std;
 
-Imagens::Imagens(){
-	string localArquivo = Arquivo::getLocalArquivo();
-	Imagens::leitorArquivo(localArquivo);
-}
+Imagens::Imagens(){}
 
 Imagens::~Imagens(){}
 
