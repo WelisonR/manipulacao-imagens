@@ -15,8 +15,8 @@ private:
 	int tamMensagem;
 	int cifraCesar;
 	
-	//string mensagem;
-	//string mensagemDecodificada;
+	string mensagem;
+	string mensagemDecodificada;
 
 public:
 	PGM(string localArquivo);
@@ -28,13 +28,15 @@ public:
 	void setCifraCesar(int cifraCesar);
 	int getCifraCesar();
 	
-	//void setMensagem(string mensagem);
-	//string getMensagem();
-	//void setMensagemDecodificada(string mensagemDecodificada);
-	//string getMensagemDecodificada();
+	void setMensagem(string mensagem);
+	string getMensagem();
+	void setMensagemDecodificada(string mensagemDecodificada);
+	string getMensagemDecodificada();
 
 	void atribuiLocalMensagem(string localArquivo);
 	void atribuiValoresMatrizPGM(string localArquivo);
+	void atribuiMensagem();
+	void atribuiMensagemDecodificada();
 
 };
 

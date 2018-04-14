@@ -22,6 +22,8 @@ PGM::PGM(string localArquivo){
 	}
 
 	PGM::atribuiValoresMatrizPGM(localArquivo);
+	PGM::atribuiMensagem();
+	PGM::atribuiMensagemDecodificada();
 
 }
 
@@ -61,6 +63,22 @@ void PGM::setCifraCesar(int cifraCesar){
 
 int PGM::getCifraCesar(){
 	return cifraCesar;
+}
+
+void PGM::setMensagem(string mensagem){
+	this->mensagem = mensagem;
+}
+
+string PGM::getMensagem(){
+	return mensagem;
+}
+
+void PGM::setMensagemDecodificada(string mensagemDecodificada){
+	this->mensagemDecodificada = mensagemDecodificada;
+}
+
+string PGM::getMensagemDecodificada(){
+	return mensagemDecodificada;
 }
 
 void PGM::atribuiLocalMensagem(string localArquivo){
@@ -105,5 +123,43 @@ void PGM::atribuiValoresMatrizPGM(string localArquivo){
 	}
 
 	imagem.close();
+
+}
+
+void PGM::atribuiMensagem(){
+	int contador = 0;
+	string mensagem = "";
+
+	for (int i = 0; i < Imagens::getNLinhas(); i++){
+		for (int j = 0; j < Imagens::getNColunas(); j++){
+			if (contador>= PGM::getInicioMensagem() && contador< (PGM::getInicioMensagem()+PGM::getTamMensagem())){
+				mensagem+= matrizPGM[i][j][0];
+			}
+			contador++;
+		}
+	}
+
+	PGM::setMensagem(mensagem);
+}
+
+void PGM::atribuiMensagemDecodificada(){
+	string mensagemDecodificada = "";
+
+	for (int i= 0; i < (int) mensagem.length(); i++){
+		char letraResultante = mensagem[i];
+		char letraPadrao = 'a';
+		
+		if (isupper(mensagem[i])){
+			letraPadrao = 'A';
+		}
+
+		if (isalpha(mensagem[i])){
+			letraResultante = ((mensagem[i] - (char) PGM::getCifraCesar() - letraPadrao + 26) % 26) + letraPadrao;
+		}
+
+		mensagemDecodificada+= letraResultante;
+	}
+
+	PGM::setMensagemDecodificada(mensagemDecodificada);	
 
 }

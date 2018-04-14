@@ -16,6 +16,7 @@ int main(int arc, char **argv){
 
 	if (extensaoArquivo == "pgm"){
 		PGM img1(localArquivo);
+		cout << "A mensagem decodificada é: " << "\"" << img1.getMensagemDecodificada() << "\"" << endl;
 	}
 
 	return 0;
