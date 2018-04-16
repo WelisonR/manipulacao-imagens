@@ -2,6 +2,7 @@
 #include "arquivo.hpp"
 #include "imagens.hpp"
 #include "pgm.hpp"
+#include "ppm.hpp"
 
 using namespace std;
 
@@ -17,6 +18,10 @@ int main(int arc, char **argv){
 	if (extensaoArquivo == "pgm"){
 		PGM img1(localArquivo);
 		cout << "A mensagem decodificada é: " << "\"" << img1.getMensagemDecodificada() << "\"" << endl;
+	}
+	else if (extensaoArquivo == "ppm"){
+		PPM img1(localArquivo);
+		cout << "A mensagem codificada é: " << "\"" << img1.getMensagem() << "\"" << endl;	
 	}
 
 	return 0;
