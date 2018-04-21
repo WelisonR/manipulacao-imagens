@@ -7,14 +7,14 @@
 class PPM : public Imagens {
 
 private:
-	char ***matrizPPM;
+	unsigned char ***matrizPPM;
 	int inicioMensagem;
 	int tamMensagem;
 	string palavraChave;
 	char *alfabetoCifrado;
 	
 	string mensagem;
-	//string mensagemDecodificada;
+	string mensagemDecodificada;
 
 public:
 	PPM(string localArquivo);
@@ -27,11 +27,15 @@ public:
 	string getPalavraChave();
 	void setMensagem(string mensagem);
 	string getMensagem();
+	void setMensagemDecodificada(string mensagemDecodificada);
+	string getMensagemDecodificada();
+
 
 	void atribuiLocalMensagem(string localArquivo);
 	void atribuiValoresMatrizPPM(string localArquivo);
 	void atribuiMensagem();
 	void preencheAlfabetoCifrado();
+	void atribuiMensagemDecodificada();
 };
 
 #endif

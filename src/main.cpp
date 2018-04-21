@@ -21,7 +21,7 @@ int main(int arc, char **argv){
 	}
 	else if (extensaoArquivo == "ppm"){
 		PPM img1(localArquivo);
-		cout << "A mensagem codificada é: " << "\"" << img1.getMensagem() << "\"" << endl;	
+		cout << "A mensagem decodificada é: " << "\"" << img1.getMensagemDecodificada() << "\"" << endl;
 	}
 
 	return 0;
