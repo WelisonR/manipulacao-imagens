@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include "pgm.hpp"
+#include "imagens.hpp"
 
 using namespace std;
 

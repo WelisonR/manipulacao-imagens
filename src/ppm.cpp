@@ -1,7 +1,9 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+
 #include "ppm.hpp"
+#include "imagens.hpp"
 
 using namespace std;
 
@@ -134,7 +136,7 @@ void PPM::atribuiMensagem(){
 	int contador = 0;
 	string mensagem = "";
 
-	int aux = 0, somaUnidades = 0;
+	int somaUnidades = 0, aux = 0;
 	for (int i = 0; i < Imagens::getNLinhas(); i++){
 		for (int j = 0; j < Imagens::getNColunas(); j++){
 			for (int k = 0; k < 3; k++){
@@ -143,7 +145,7 @@ void PPM::atribuiMensagem(){
 					aux++;
 				}
 				if (contador >= getInicioMensagem() && contador < (getInicioMensagem()+3*getTamMensagem()) && aux == 3){
-					mensagem += (char) somaUnidades;
+					mensagem += (char) somaUnidades + 'a' - 1;
 					somaUnidades = 0;
 					aux = 0;
 				}
@@ -196,12 +198,12 @@ void PPM::atribuiMensagemDecodificada(){
 
 	for (int i = 0; i < (int) mensagem.length(); i++){
 		for (int j = 1; j < 27; j++){
-			if ((int) mensagem[i] == 0){
+			if (mensagem[i] == 'a'- 1){
 				mensagemDecodificada+= " ";
 				break;
 			}
-			if ((char) (mensagem[i] + 'a' - 1) == alfabetoCifrado[j]){
-				mensagemDecodificada += char (j + (int) 'a' - 1) - 32;
+			if (mensagem[i] == alfabetoCifrado[j]){
+				mensagemDecodificada += (j + 'a' - 1) - 32;
 			}
 		}
 	}

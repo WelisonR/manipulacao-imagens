@@ -1,28 +1,42 @@
-#include <iostream>
 #include "arquivo.hpp"
 #include "imagens.hpp"
 #include "pgm.hpp"
 #include "ppm.hpp"
 
+#include <iostream>
 using namespace std;
 
 int main(int arc, char **argv){
-	cout << "Bem-vindo ao algoritmo de descriptografia de imagens" << endl;
-	cout << "Por favor, insira o diretório para a imagem com a respectiva extensão: " << endl;
-	Arquivo arq1;			
-	arq1.recebeLocalArquivo();
+	cout << "Bem-vindo ao algoritmo de descriptografia de mensagens escondidas em imagens." << endl;
+	cout << "Por favor, insira o diretório para a imagem com a sua respectiva extensão: ";
 
-	string localArquivo = arq1.getLocalArquivo();
-	string extensaoArquivo = arq1.getExtensaoArquivo();
+	bool done = false;
+	Arquivo *arq1;
+	while (!done){
+		try{
+			arq1 = new Arquivo();
+			done = true;
+		}
+		catch (int excecao){
+			if (excecao == 0)
+				cout << "Tipo de arquivo não aceito. Informe um arquivo '.pgm' ou '.ppm': ";
+			else if (excecao == 1)
+				cout << "O arquivo não pode ser aberto. Digite um diretório válido: ";
+		}
+	}
+	
+	if (arq1->getExtensaoArquivo() == "pgm"){
+		PGM *img1 = new PGM(arq1->getLocalArquivo());
+		cout << endl <<"A mensagem decodificada é: " << "\"" << img1->getMensagemDecodificada() << "\"" << "." << endl;
+		delete img1;
+	}
+	else if (arq1->getExtensaoArquivo() == "ppm"){
+		PPM *img1 = new PPM(arq1->getLocalArquivo());
+		cout << endl <<"A mensagem decodificada é: " << "\"" << img1->getMensagemDecodificada() << "\"" << "." << endl;
+		delete img1;
+	}
 
-	if (extensaoArquivo == "pgm"){
-		PGM img1(localArquivo);
-		cout << "A mensagem decodificada é: " << "\"" << img1.getMensagemDecodificada() << "\"" << endl;
-	}
-	else if (extensaoArquivo == "ppm"){
-		PPM img1(localArquivo);
-		cout << "A mensagem decodificada é: " << "\"" << img1.getMensagemDecodificada() << "\"" << endl;
-	}
+	delete arq1;
 
 	return 0;
 }

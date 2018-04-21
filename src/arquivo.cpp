@@ -1,9 +1,14 @@
 #include <iostream>
+#include <fstream>
 #include "arquivo.hpp"
 
 using namespace std;
 
-Arquivo::Arquivo(){}
+Arquivo::Arquivo(){
+	Arquivo::recebeLocalArquivo();
+	Arquivo::atribuiExtensaoArquivo();
+	Arquivo::verificaExcecao();
+}
 
 Arquivo::~Arquivo(){}
 
@@ -28,12 +33,22 @@ void Arquivo::recebeLocalArquivo(){
 	cin >> localArquivo;
 
 	Arquivo::setLocalArquivo(localArquivo);
-	Arquivo::atribuiExtensaoArquivo(localArquivo);
 }
 
-void Arquivo::atribuiExtensaoArquivo(string localArquivo){
+void Arquivo::atribuiExtensaoArquivo(){
 	string extensaoArquivo = "";
-	extensaoArquivo = localArquivo.substr(localArquivo.length()-3, 3);
+	extensaoArquivo = localArquivo.substr(Arquivo::getLocalArquivo().length()-3, 3);
 
 	Arquivo::setExtensaoArquivo(extensaoArquivo);
+}
+
+void Arquivo::verificaExcecao(){
+	if (Arquivo::getExtensaoArquivo() != "ppm" && Arquivo::getExtensaoArquivo() != "pgm"){
+		throw(0);
+	}
+
+	ifstream imagem(Arquivo::getLocalArquivo().c_str());
+	if (!imagem.is_open()){
+		throw(1);	
+	}
 }

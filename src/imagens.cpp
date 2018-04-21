@@ -1,5 +1,4 @@
 #include "imagens.hpp"
-#include "arquivo.hpp"
 #include <iostream>
 #include <fstream>
 

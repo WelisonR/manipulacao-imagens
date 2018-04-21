@@ -14,13 +14,15 @@ private:
 public:
 	Arquivo();
 	~Arquivo();
+
 	void setLocalArquivo (string localArquivo);
 	string getLocalArquivo();
 	void setExtensaoArquivo(string extensaoArquivo);
 	string getExtensaoArquivo();
-	void recebeLocalArquivo();
-	void atribuiExtensaoArquivo(string localArquivo);
 
+	void recebeLocalArquivo();
+	void atribuiExtensaoArquivo();
+	void verificaExcecao();
 };
 
 #endif

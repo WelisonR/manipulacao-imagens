@@ -1,10 +1,11 @@
 #ifndef IMAGENS_HPP
 #define IMAGENS_HPP
 
-#include "arquivo.hpp"
-#include <string.h>
+#include <string>
 
-class Imagens : public Arquivo {
+using namespace std;
+
+class Imagens {
 
 private:
 	string tipoImagem;
