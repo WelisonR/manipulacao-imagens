@@ -13,6 +13,7 @@ Mais informações:  [WIKI - EP1](https://gitlab.com/oofga/eps_2018_1/ep1/wikis/
 Para testar a aplicação, execute os seguintes passos:
 1. Faça uma cópia do repositório para o seu computador em um lugar de sua preferência.
 2. Acesse o local do repositório e execute-o através dos comandos:
+
 ```
 $ make
 $ make run
@@ -20,7 +21,15 @@ $ make run
 
 ## FUNCIONAMENTO
 A aplicação possui as seguintes características:
-1. Ao executar a aplicação será solicitado ao usuário o diretório da imagem com a sua respectiva extensão (.pgm ou .ppm).
+1. Ao executar a aplicação será solicitado ao usuário o diretório da imagem com a sua respectiva extensão (.pgm ou .ppm). O diretório deve ser especificado de acordo com o seu atual diretório.
+Portanto, é uma entrada válida:
+
+> Diretório atual do bash: .../OO_EP1_CRIPTOGRAFIA_IMAGENS
+
+```
+$ img/lena.ppm
+```
+
 2. Após isso, será apresentado no terminal a mensagem e a aplicação será encerrada.
 
 > Pode-se utilizar exemplos de imagens encontradas na pasta "img" do projeto.

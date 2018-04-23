@@ -8,8 +8,9 @@
 using namespace std;
 
 int main(int arc, char **argv){
-	cout << "Bem-vindo ao algoritmo de decodificação de mensagens de imagens '.pgm' e '.ppm'" << endl;
-	cout << "Por favor, insira o diretório para a imagem com a sua respectiva extensão: ";
+	cout << "Bem-vindo ao algoritmo de decodificação de mensagens de imagens '.pgm' e '.ppm'." << endl;
+	cout << "Abaixo, insira o diretório para a imagem com a sua respectiva extensão." << endl;
+	cout << "Diretório: ";
 
 	Arquivo *arq1;
 
@@ -21,9 +22,9 @@ int main(int arc, char **argv){
 		}
 		catch (int excecao){
 			if (excecao == 0)
-				cout << "Tipo de arquivo não aceito. Informe um arquivo '.pgm' ou '.ppm': ";
+				cout << "Tipo de arquivo não aceito." << endl << "Informe um arquivo '.pgm' ou '.ppm': ";
 			else if (excecao == 1)
-				cout << "O arquivo não pôde ser aberto. Digite um diretório válido: ";
+				cout << "O arquivo não pôde ser aberto." << endl << "Digite um diretório válido: ";
 		}
 	}
 	

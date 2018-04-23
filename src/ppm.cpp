@@ -149,7 +149,6 @@ void PPM::atribuiMensagem(){
 
 				contador++;
 			}
-			
 		}
 	}
 

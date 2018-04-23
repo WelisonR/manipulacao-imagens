@@ -129,6 +129,7 @@ void PGM::atribuiMensagem(){
 		for (int j = 0; j < Imagens::getNColunas(); j++){
 			if (contador >= PGM::getInicioMensagem() && contador < (PGM::getInicioMensagem()+PGM::getTamMensagem()))
 				mensagem += matrizPGM[i][j][0];
+
 			contador++;
 		}
 	}

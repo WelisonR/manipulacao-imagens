@@ -32,7 +32,7 @@ string Arquivo::getExtensaoArquivo(){
 // recebe a localização da imagem com a sua extensão (ppm ou pgm)
 void Arquivo::recebeLocalArquivo(){
 	string localArquivo= "";
-	cin >> localArquivo;
+	getline(cin, localArquivo);
 
 	Arquivo::setLocalArquivo(localArquivo);
 }
