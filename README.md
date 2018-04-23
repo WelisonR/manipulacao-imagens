@@ -20,9 +20,10 @@ $ make run
 
 ## FUNCIONAMENTO
 A aplicação possui as seguintes características:
-1. Ao executar a aplicação será solicitado ao usuário a localização da imagem com a sua respectiva extensão.
+1. Ao executar a aplicação será solicitado ao usuário o diretório da imagem com a sua respectiva extensão (.pgm ou .ppm).
 2. Após isso, será apresentado no terminal a mensagem e a aplicação será encerrada.
+
 > Pode-se utilizar exemplos de imagens encontradas na pasta "img" do projeto.
 
 ## IDEALIZADOR
-Welison Lucas Almeida Regis - 2018.1
+Welison Lucas Almeida Regis - 2018.1.
