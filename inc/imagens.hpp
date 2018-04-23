@@ -2,6 +2,8 @@
 #define IMAGENS_HPP
 
 #include <string>
+#include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -12,6 +14,7 @@ private:
 	int nColunas;
 	int nLinhas;
 	int maxPixel;
+
 public:
 	Imagens();
 	~Imagens();

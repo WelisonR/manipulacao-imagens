@@ -1,9 +1,12 @@
 #ifndef PGM_HPP
 #define PGM_HPP
 
-#include "arquivo.hpp"
 #include "imagens.hpp"
+
+#include <iostream>
 #include <string>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -14,9 +17,9 @@ private:
 	int inicioMensagem;
 	int tamMensagem;
 	int cifraCesar;
-	
 	string mensagem;
 	string mensagemDecodificada;
+	PGM();
 
 public:
 	PGM(string localArquivo);
@@ -27,12 +30,10 @@ public:
 	int getTamMensagem();
 	void setCifraCesar(int cifraCesar);
 	int getCifraCesar();
-	
 	void setMensagem(string mensagem);
 	string getMensagem();
 	void setMensagemDecodificada(string mensagemDecodificada);
 	string getMensagemDecodificada();
-
 	void atribuiLocalMensagem(string localArquivo);
 	void atribuiValoresMatrizPGM(string localArquivo);
 	void atribuiMensagem();

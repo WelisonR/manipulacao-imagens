@@ -1,45 +1,40 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
 #include "pgm.hpp"
 #include "imagens.hpp"
 
 using namespace std;
 
+PGM::PGM(){}
+
 PGM::PGM(string localArquivo){
-
 	Imagens::leitorArquivo(localArquivo);
-	PGM::atribuiLocalMensagem(localArquivo);
 
-	int nLinhas = Imagens::getNLinhas();
-	int nColunas = Imagens::getNColunas();
-
-	matrizPGM = new char**[nLinhas];
-	for (int i = 0; i < nLinhas; i++){
-		matrizPGM[i] = new char*[nColunas];
-		for (int j = 0; j < nColunas; j++){
+	matrizPGM = new char **[Imagens::getNLinhas()];
+	for (int i = 0; i < Imagens::getNLinhas(); i++){
+		matrizPGM[i] = new char *[Imagens::getNColunas()];
+		for (int j = 0; j < Imagens::getNColunas(); j++){
 			matrizPGM[i][j] = new char[1];
 		}
 	}
+	inicioMensagem = 0;
+	tamMensagem = 0;
+	cifraCesar = 0;
+	string mensagem = "";
+	string mensagemDecodificada = "";
 
+	PGM::atribuiLocalMensagem(localArquivo);
 	PGM::atribuiValoresMatrizPGM(localArquivo);
 	PGM::atribuiMensagem();
 	PGM::atribuiMensagemDecodificada();
-
 }
 
 PGM::~PGM(){
-	int nLinhas = Imagens::getNLinhas();
-	int nColunas = Imagens::getNColunas();
-
-	for (int i = 0; i < nLinhas; i++){
-		for (int j = 0; j < nColunas; j++){
+	for (int i = 0; i < Imagens::getNLinhas(); i++){
+		for (int j = 0; j < Imagens::getNColunas(); j++){
 			delete [] matrizPGM[i][j];
 		}
 		delete [] matrizPGM[i];
 	}
 	delete [] matrizPGM;
-	
 }
 
 void PGM::setInicioMensagem(int inicioMensagem){
@@ -84,14 +79,14 @@ string PGM::getMensagemDecodificada(){
 
 void PGM::atribuiLocalMensagem(string localArquivo){
 	int inicioMensagem = 0, tamMensagem = 0, cifraCesar = 0;
+	string aux = "";
 
 	ifstream imagem(localArquivo.c_str());
 
-	string aux = "";
-	getline(imagem, aux); // despreza a primeira linha
+	getline(imagem, aux); // despreza a primeira linha do arquivo
 	getline(imagem, aux);
-	aux.erase(0, 1);
 
+	aux.erase(0, 1); // apaga a sinalização de comentário (#)
 	istringstream iss(aux);
 	iss >> inicioMensagem >> tamMensagem >> cifraCesar;	
 
@@ -103,19 +98,16 @@ void PGM::atribuiLocalMensagem(string localArquivo){
 }
 
 void PGM::atribuiValoresMatrizPGM(string localArquivo){
-	int nLinhas = Imagens::getNLinhas();
-	int nColunas = Imagens::getNColunas();
-	
+	string aux = "";
+
 	ifstream imagem(localArquivo.c_str());
 
-	// ignora 4 linhas do arquivo (imagem.seekg(27))
-	string aux;
-	for (int i = 0; i < 4; i++){
+	// ignora o cabeçalho da imagem
+	for (int i = 0; i < 4; i++)
 		getline(imagem, aux);	
-	}
 
-	for (int i = 0; i < nLinhas; i++){
-		for (int j = 0; j < nColunas; j++){
+	for (int i = 0; i < Imagens::getNLinhas(); i++){
+		for (int j = 0; j < Imagens::getNColunas(); j++){
 			char letra;
 			imagem.get(letra);
 			
@@ -124,7 +116,6 @@ void PGM::atribuiValoresMatrizPGM(string localArquivo){
 	}
 
 	imagem.close();
-
 }
 
 void PGM::atribuiMensagem(){
@@ -133,9 +124,8 @@ void PGM::atribuiMensagem(){
 
 	for (int i = 0; i < Imagens::getNLinhas(); i++){
 		for (int j = 0; j < Imagens::getNColunas(); j++){
-			if (contador>= PGM::getInicioMensagem() && contador< (PGM::getInicioMensagem()+PGM::getTamMensagem())){
+			if (contador>= PGM::getInicioMensagem() && contador< (PGM::getInicioMensagem()+PGM::getTamMensagem()))
 				mensagem+= matrizPGM[i][j][0];
-			}
 			contador++;
 		}
 	}
@@ -147,20 +137,16 @@ void PGM::atribuiMensagemDecodificada(){
 	string mensagemDecodificada = "";
 
 	for (int i= 0; i < (int) mensagem.length(); i++){
-		char letraResultante = mensagem[i];
-		char letraPadrao = 'a';
+		char letraResultante = mensagem[i], letraPadrao = 'a';
 		
-		if (isupper(mensagem[i])){
+		if (isupper(mensagem[i]))
 			letraPadrao = 'A';
-		}
 
-		if (isalpha(mensagem[i])){
+		if (isalpha(mensagem[i]))
 			letraResultante = ((mensagem[i] - (char) PGM::getCifraCesar() - letraPadrao + 26) % 26) + letraPadrao;
-		}
 
 		mensagemDecodificada+= letraResultante;
 	}
 
-	PGM::setMensagemDecodificada(mensagemDecodificada);	
-
+	PGM::setMensagemDecodificada(mensagemDecodificada);
 }

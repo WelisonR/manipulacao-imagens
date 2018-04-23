@@ -1,36 +1,35 @@
-#include <iostream>
-#include <sstream>
-#include <fstream>
-
 #include "ppm.hpp"
 #include "imagens.hpp"
 
 using namespace std;
 
+PPM::PPM(){}
+
 PPM::PPM(string localArquivo){
-
 	Imagens::leitorArquivo(localArquivo);
-	PPM::atribuiLocalMensagem(localArquivo);
 
-	matrizPPM = new unsigned char**[Imagens::getNLinhas()];
+	matrizPPM = new unsigned char **[Imagens::getNLinhas()];
 	for (int i = 0; i < Imagens::getNLinhas(); i++){
-		matrizPPM[i] = new unsigned char*[Imagens::getNColunas()];
+		matrizPPM[i] = new unsigned char *[Imagens::getNColunas()];
 		for (int j = 0; j < Imagens::getNColunas(); j++){
 			matrizPPM[i][j] = new unsigned char[3];
 		}
 	}
+	alfabetoCifrado = new char[27];
+	inicioMensagem = 0;
+	tamMensagem = 0;
+	palavraChave = "";
+	mensagem = "";
+	mensagemDecodificada = "";
 
+	PPM::atribuiLocalMensagem(localArquivo);
 	PPM::atribuiValoresMatrizPPM(localArquivo);
 	PPM::atribuiMensagem();
-
-	alfabetoCifrado = new char[27];
 	PPM::preencheAlfabetoCifrado();
-	PPM::atribuiMensagemDecodificada(); 
-
+	PPM::atribuiMensagemDecodificada();
 }
 
 PPM::~PPM(){
-
 	for (int i = 0; i < Imagens::getNLinhas(); i++){
 		for (int j = 0; j < Imagens::getNColunas(); j++){
 			delete [] matrizPPM[i][j];
@@ -40,7 +39,6 @@ PPM::~PPM(){
 	delete [] matrizPPM;
 
 	delete [] alfabetoCifrado;
-	
 }
 
 void PPM::setInicioMensagem(int inicioMensagem){
@@ -102,18 +100,16 @@ void PPM::atribuiLocalMensagem(string localArquivo){
 	PPM::setInicioMensagem(inicioMensagem);
 	PPM::setTamMensagem(tamMensagem);
 	PPM::setPalavraChave(palavraChave);
-
 }
 
 void PPM::atribuiValoresMatrizPPM(string localArquivo){
+	string aux = "";
 
 	ifstream imagem(localArquivo.c_str());
 
-	// ignora 4 linhas do arquivo (imagem.seekg(27))
-	string aux;
-	for (int i = 0; i < 4; i++){
-		getline(imagem, aux);	
-	}
+	// ignora o cabeçalho da imagem
+	for (int i = 0; i < 4; i++)
+		getline(imagem, aux);
 
 	for (int i = 0; i < Imagens::getNLinhas(); i++){
 		for (int j = 0; j < Imagens::getNColunas(); j++){
@@ -129,14 +125,12 @@ void PPM::atribuiValoresMatrizPPM(string localArquivo){
 	}
 
 	imagem.close();
-
 }
 
 void PPM::atribuiMensagem(){
-	int contador = 0;
+	int contador = 0, somaUnidades = 0, aux = 0;
 	string mensagem = "";
 
-	int somaUnidades = 0, aux = 0;
 	for (int i = 0; i < Imagens::getNLinhas(); i++){
 		for (int j = 0; j < Imagens::getNColunas(); j++){
 			for (int k = 0; k < 3; k++){
@@ -157,54 +151,45 @@ void PPM::atribuiMensagem(){
 	}
 
 	PPM::setMensagem(mensagem);
-
 }
 
 void PPM::preencheAlfabetoCifrado(){
-	
-	string palavraChave = getPalavraChave();
-	int tam = (int) palavraChave.length();
-	palavraChave = getPalavraChave().c_str();
+	int aux = 0;
 
 	alfabetoCifrado[0] = ' ';
-	for (int i = 1; i < tam+1; i++){
+	for (int i = 1; i < (int) PPM::getPalavraChave().length() + 1; i++)
 		alfabetoCifrado[i] = palavraChave[i-1];
-	}
 
-	int aux = 0;
-	for (int i = tam+1; i < 27; i++){
-		for (int k = 0; k < 26; k ++){
+	for (int i = (int) PPM::getPalavraChave().length() + 1; i < 27; i++){
+		for (int k = 0; k < 26; k++){
 			int flag = 0;
-			for (int j = 1; j < tam+1+aux; j++){
-				if (alfabetoCifrado[j] == 'a'+k){
+			for (int j = 1; j < (int) PPM::getPalavraChave().length() + 1 + aux; j++){
+				if (alfabetoCifrado[j] == 'a' + k){
 					flag = 1;
 					break;
 				}
 			}
 			if (flag == 0){
-				alfabetoCifrado[i] = (char) 'a'+k;
+				alfabetoCifrado[i] = (char) 'a' + k;
 				break;
 			}
 		}
+		
 		aux++;
 	}
-
 }
-
-
 
 void PPM::atribuiMensagemDecodificada(){
 	string mensagemDecodificada = "";
 
-	for (int i = 0; i < (int) mensagem.length(); i++){
+	for (int i = 0; i < (int) getMensagem().length(); i++){
 		for (int j = 1; j < 27; j++){
 			if (mensagem[i] == 'a'- 1){
 				mensagemDecodificada+= " ";
 				break;
 			}
-			if (mensagem[i] == alfabetoCifrado[j]){
+			if (mensagem[i] == alfabetoCifrado[j])
 				mensagemDecodificada += (j + 'a' - 1) - 32;
-			}
 		}
 	}
 

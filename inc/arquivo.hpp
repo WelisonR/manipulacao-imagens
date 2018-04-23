@@ -1,7 +1,9 @@
 #ifndef ARQUIVO_HPP
 #define ARQUIVO_HPP
 
+#include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -14,15 +16,14 @@ private:
 public:
 	Arquivo();
 	~Arquivo();
-
 	void setLocalArquivo (string localArquivo);
 	string getLocalArquivo();
 	void setExtensaoArquivo(string extensaoArquivo);
 	string getExtensaoArquivo();
-
 	void recebeLocalArquivo();
 	void atribuiExtensaoArquivo();
 	void verificaExcecao();
+
 };
 
 #endif

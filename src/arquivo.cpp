@@ -1,10 +1,11 @@
-#include <iostream>
-#include <fstream>
 #include "arquivo.hpp"
 
 using namespace std;
 
 Arquivo::Arquivo(){
+	localArquivo = "";
+	extensaoArquivo = "";
+
 	Arquivo::recebeLocalArquivo();
 	Arquivo::atribuiExtensaoArquivo();
 	Arquivo::verificaExcecao();
@@ -43,12 +44,10 @@ void Arquivo::atribuiExtensaoArquivo(){
 }
 
 void Arquivo::verificaExcecao(){
-	if (Arquivo::getExtensaoArquivo() != "ppm" && Arquivo::getExtensaoArquivo() != "pgm"){
+	if (Arquivo::getExtensaoArquivo() != "ppm" && Arquivo::getExtensaoArquivo() != "pgm")
 		throw(0);
-	}
 
 	ifstream imagem(Arquivo::getLocalArquivo().c_str());
-	if (!imagem.is_open()){
-		throw(1);	
-	}
+	if (!imagem.is_open())
+		throw(1);
 }

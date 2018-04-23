@@ -4,24 +4,26 @@
 #include "ppm.hpp"
 
 #include <iostream>
+
 using namespace std;
 
 int main(int arc, char **argv){
-	cout << "Bem-vindo ao algoritmo de descriptografia de mensagens escondidas em imagens." << endl;
+	cout << "Bem-vindo ao algoritmo de decodificação de mensagens em imagens '.pgm' e '.ppm'" << endl;
 	cout << "Por favor, insira o diretório para a imagem com a sua respectiva extensão: ";
 
-	bool done = false;
 	Arquivo *arq1;
-	while (!done){
+
+	bool satisfeito = false;
+	while (!satisfeito){
 		try{
 			arq1 = new Arquivo();
-			done = true;
+			satisfeito = true;
 		}
 		catch (int excecao){
 			if (excecao == 0)
 				cout << "Tipo de arquivo não aceito. Informe um arquivo '.pgm' ou '.ppm': ";
 			else if (excecao == 1)
-				cout << "O arquivo não pode ser aberto. Digite um diretório válido: ";
+				cout << "O arquivo não pôde ser aberto. Digite um diretório válido: ";
 		}
 	}
 	
@@ -35,7 +37,7 @@ int main(int arc, char **argv){
 		cout << endl <<"A mensagem decodificada é: " << "\"" << img1->getMensagemDecodificada() << "\"" << "." << endl;
 		delete img1;
 	}
-
+	
 	delete arq1;
 
 	return 0;
