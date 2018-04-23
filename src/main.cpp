@@ -8,7 +8,7 @@
 using namespace std;
 
 int main(int arc, char **argv){
-	cout << "Bem-vindo ao algoritmo de decodificação de mensagens em imagens '.pgm' e '.ppm'" << endl;
+	cout << "Bem-vindo ao algoritmo de decodificação de mensagens de imagens '.pgm' e '.ppm'" << endl;
 	cout << "Por favor, insira o diretório para a imagem com a sua respectiva extensão: ";
 
 	Arquivo *arq1;
