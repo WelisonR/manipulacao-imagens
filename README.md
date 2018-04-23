@@ -17,11 +17,12 @@ Para testar a aplicação, execute os seguintes passos:
 $ make
 $ make run
 ```
+
 ## FUNCIONAMENTO
 A aplicação possui as seguintes características:
 1. Ao executar a aplicação será solicitado ao usuário a localização da imagem com a sua respectiva extensão.
 2. Após isso, será apresentado no terminal a mensagem e a aplicação será encerrada.
-	> Pode-se utilizar exemplos de imagens encontradas na pasta "img" do projeto.
+> Pode-se utilizar exemplos de imagens encontradas na pasta "img" do projeto.
 
 ## IDEALIZADOR
 Welison Lucas Almeida Regis - 2018.1

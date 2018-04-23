@@ -77,6 +77,7 @@ string PGM::getMensagemDecodificada(){
 	return mensagemDecodificada;
 }
 
+// define as variáveis que indicam o inicio da mensagem, sua extensão e o valor da cifra de cesar
 void PGM::atribuiLocalMensagem(string localArquivo){
 	int inicioMensagem = 0, tamMensagem = 0, cifraCesar = 0;
 	string aux = "";
@@ -97,6 +98,7 @@ void PGM::atribuiLocalMensagem(string localArquivo){
 	PGM::setCifraCesar(cifraCesar);
 }
 
+// recebe e atribui a imagem propriamente dita na matriz 3d
 void PGM::atribuiValoresMatrizPGM(string localArquivo){
 	string aux = "";
 
@@ -118,14 +120,15 @@ void PGM::atribuiValoresMatrizPGM(string localArquivo){
 	imagem.close();
 }
 
+// guarda todos os caracteres concernentes a mensagem (criptografada)
 void PGM::atribuiMensagem(){
 	int contador = 0;
 	string mensagem = "";
 
 	for (int i = 0; i < Imagens::getNLinhas(); i++){
 		for (int j = 0; j < Imagens::getNColunas(); j++){
-			if (contador>= PGM::getInicioMensagem() && contador< (PGM::getInicioMensagem()+PGM::getTamMensagem()))
-				mensagem+= matrizPGM[i][j][0];
+			if (contador >= PGM::getInicioMensagem() && contador < (PGM::getInicioMensagem()+PGM::getTamMensagem()))
+				mensagem += matrizPGM[i][j][0];
 			contador++;
 		}
 	}
@@ -133,19 +136,21 @@ void PGM::atribuiMensagem(){
 	PGM::setMensagem(mensagem);
 }
 
+// decodificada "mensagem" através da aplicação da cifra de cesar de maneira reversa
 void PGM::atribuiMensagemDecodificada(){
 	string mensagemDecodificada = "";
 
-	for (int i= 0; i < (int) mensagem.length(); i++){
+	for (int i= 0; i < (int) PGM::getMensagem().length(); i++){
 		char letraResultante = mensagem[i], letraPadrao = 'a';
 		
 		if (isupper(mensagem[i]))
 			letraPadrao = 'A';
-
+		// há interesse apenas em aplicar a cifra em letras
 		if (isalpha(mensagem[i]))
-			letraResultante = ((mensagem[i] - (char) PGM::getCifraCesar() - letraPadrao + 26) % 26) + letraPadrao;
+			// pega-se o resto da divisão por 26 devido a ciclicidade dos valores possíveis
+			letraResultante = ((mensagem[i] - cifraCesar - letraPadrao + 26) % 26) + letraPadrao;
 
-		mensagemDecodificada+= letraResultante;
+		mensagemDecodificada += letraResultante;
 	}
 
 	PGM::setMensagemDecodificada(mensagemDecodificada);

@@ -43,6 +43,7 @@ int Imagens::getMaxPixel(){
 	return maxPixel;
 }
 
+// preenche informações gerais relativas a natureza da imagem
 void Imagens::leitorArquivo(string localArquivo){
 	string tipoImagem = "", aux = "";
 	int nColunas = 0, nLinhas = 0, maxPixel = 0;	
@@ -51,7 +52,7 @@ void Imagens::leitorArquivo(string localArquivo){
 
 	getline(imagem, tipoImagem);
 	getline(imagem, aux); // ignora a segunda linha do arquivo (especificações sobre a criptografia)
-	// Motivo: as informações apresentadas pode mudar devido a novas formas de criptografia
+	// Motivo: as informações apresentadas podem mudar devido a novas formas de criptografia
 	// Devido a isso, decidiu-se especializar as informações sobre a criptografia presente na imagem
 	imagem >> nColunas >> nLinhas >> maxPixel;
 	

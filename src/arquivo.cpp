@@ -29,6 +29,7 @@ string Arquivo::getExtensaoArquivo(){
 	return extensaoArquivo;
 }
 
+// recebe a localização da imagem com a sua extensão (ppm ou pgm)
 void Arquivo::recebeLocalArquivo(){
 	string localArquivo= "";
 	cin >> localArquivo;
@@ -36,6 +37,7 @@ void Arquivo::recebeLocalArquivo(){
 	Arquivo::setLocalArquivo(localArquivo);
 }
 
+// armazena a extensão da imagem, isto é, "ppm" ou "pgm"
 void Arquivo::atribuiExtensaoArquivo(){
 	string extensaoArquivo = "";
 	extensaoArquivo = localArquivo.substr(Arquivo::getLocalArquivo().length()-3, 3);
@@ -43,6 +45,7 @@ void Arquivo::atribuiExtensaoArquivo(){
 	Arquivo::setExtensaoArquivo(extensaoArquivo);
 }
 
+// trata exceções que podem ser geradas em tempo de execução
 void Arquivo::verificaExcecao(){
 	if (Arquivo::getExtensaoArquivo() != "ppm" && Arquivo::getExtensaoArquivo() != "pgm")
 		throw(0);
@@ -50,4 +53,6 @@ void Arquivo::verificaExcecao(){
 	ifstream imagem(Arquivo::getLocalArquivo().c_str());
 	if (!imagem.is_open())
 		throw(1);
+	else
+		imagem.close();
 }

@@ -81,6 +81,7 @@ string PPM::getMensagemDecodificada(){
 	return mensagemDecodificada;
 }
 
+// define as variáveis que indicam o inicio da mensagem, sua extensão e a palavra-chave
 void PPM::atribuiLocalMensagem(string localArquivo){
 	int inicioMensagem = 0, tamMensagem = 0;
 	string palavraChave = "";
@@ -102,6 +103,7 @@ void PPM::atribuiLocalMensagem(string localArquivo){
 	PPM::setPalavraChave(palavraChave);
 }
 
+// recebe e atribui a imagem na matriz 3d de pixels
 void PPM::atribuiValoresMatrizPPM(string localArquivo){
 	string aux = "";
 
@@ -127,6 +129,7 @@ void PPM::atribuiValoresMatrizPPM(string localArquivo){
 	imagem.close();
 }
 
+// guarda em uma string (criptografada) a conversão das somas das unidades (tríade) em um char
 void PPM::atribuiMensagem(){
 	int contador = 0, somaUnidades = 0, aux = 0;
 	string mensagem = "";
@@ -135,11 +138,11 @@ void PPM::atribuiMensagem(){
 		for (int j = 0; j < Imagens::getNColunas(); j++){
 			for (int k = 0; k < 3; k++){
 				if (contador >= getInicioMensagem() && contador < (getInicioMensagem()+3*getTamMensagem())){
-					somaUnidades +=  ((int) matrizPPM[i][j][k]%10);
+					somaUnidades +=  ((int) matrizPPM[i][j][k] % 10); // toma a unidade do respectivo inteiro
 					aux++;
 				}
 				if (contador >= getInicioMensagem() && contador < (getInicioMensagem()+3*getTamMensagem()) && aux == 3){
-					mensagem += (char) somaUnidades + 'a' - 1;
+					mensagem += (char) somaUnidades + 'a' - 1; // atingido a triade, guarda a letra em "mensagem"
 					somaUnidades = 0;
 					aux = 0;
 				}
@@ -153,6 +156,7 @@ void PPM::atribuiMensagem(){
 	PPM::setMensagem(mensagem);
 }
 
+// define o array de chars do alfabeto com a palavra-chave informada
 void PPM::preencheAlfabetoCifrado(){
 	int aux = 0;
 
@@ -175,14 +179,16 @@ void PPM::preencheAlfabetoCifrado(){
 			}
 		}
 		
+		// amplia a área de vistoria conforme cresce alfabetoCifrado
 		aux++;
 	}
 }
 
+// Desvenda a mensagem através da procura do correspondente da letra cifrada no alfabeto original
 void PPM::atribuiMensagemDecodificada(){
 	string mensagemDecodificada = "";
 
-	for (int i = 0; i < (int) getMensagem().length(); i++){
+	for (int i = 0; i < (int) PPM::getMensagem().length(); i++){
 		for (int j = 1; j < 27; j++){
 			if (mensagem[i] == 'a'- 1){
 				mensagemDecodificada+= " ";
